@@ -1,49 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>あなたの薬局は大丈夫？生き残りレベル診断</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>あなたの薬局は大丈夫！？生き残りレベル診断</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!-- タイトル -->
+      <header class="header">
+        <h1>あなたの薬局は大丈夫？<br />生き残りレベル診断</h1>
+      </header>
 
-  <main id="app">
+      <!-- 診断カード -->
+      <section class="card" id="quiz-card">
+        <!-- 進捗 -->
+        <div class="progress"><span id="current">1</span> / <span id="total">18</span></div>
 
-    <!-- タイトル -->
-    <header class="header">
-      <h1>あなたの薬局は大丈夫？<br>生き残りレベル診断</h1>
-    </header>
+        <!-- 質問文 -->
+        <h2 class="question" id="question">ここに質問文が入ります</h2>
 
-    <!-- 診断カード -->
-    <section class="card" id="quiz-card">
+        <!-- 選択肢 -->
+        <div class="choices">
+          <button class="choice" data-value="0">選択肢A</button>
+          <button class="choice" data-value="1">選択肢B</button>
+          <button class="choice" data-value="2">選択肢C</button>
+          <button class="choice" data-value="3">選択肢D</button>
+        </div>
+      </section>
+    </main>
 
-      <!-- 進捗 -->
-      <div class="progress">
-        <span id="current">1</span> / <span id="total">18</span>
-      </div>
-
-      <!-- 質問文 -->
-      <h2 class="question" id="question">
-        ここに質問文が入ります
-      </h2>
-
-      <!-- 選択肢 -->
-      <div class="choices">
-        <button class="choice" data-value="0">選択肢A</button>
-        <button class="choice" data-value="1">選択肢B</button>
-        <button class="choice" data-value="2">選択肢C</button>
-        <button class="choice" data-value="3">選択肢D</button>
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- JS -->
-  <script src="js/app.js"></script>
-</body>
+    <!-- JS -->
+    <script src="js/app.js"></script>
+  </body>
 </html>
-
