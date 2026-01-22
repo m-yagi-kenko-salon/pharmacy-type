@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>診断結果｜あなたの薬局は大丈夫？生き残りレベル診断</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <header class="header">
+        <h1>診断結果</h1>
+        <p class="subtitle">登録不要・すぐシェアできます</p>
+      </header>
+
+      <section class="card result-card">
+        <div class="badge" id="badge">生き残りレベル</div>
+
+        <h2 class="result-title" id="resultTitle">タイプ名</h2>
+
+        <div class="stars" id="stars" aria-label="生き残りレベル">★★★☆☆</div>
+        <!-- 結果画像 -->
+        <div class="result-image">
+          <img id="resultImage" src="" alt="" />
+        </div>
+        <p class="result-body" id="resultBody">ここに結果の説明が入ります。</p>
+
+        <div class="meta">
+          <span class="chip">スコア：<b id="scoreText">0</b></span>
+          <span class="chip">回答者：現場薬剤師（勤務先について回答）</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn" id="shareX" target="_blank" rel="noopener">Xでシェア</a>
+          <a class="btn" id="shareLine" target="_blank" rel="noopener">LINEでシェア</a>
+        </div>
+
+        <div class="actions secondary">
+          <a class="btn ghost" href="index.html">もう一度やる</a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // ----------------------------
+      // 結果データ（まずは3タイプだけ）
+      // ----------------------------
+      const RESULT_MAP = {
+        strong: {
+          title: "安定・成長タイプ（強）",
+          stars: 4,
+          badge: "生き残りレベル：高め",
+          image: "img/types/strong.png",
+          imageAlt: "安定・成長タイプのイメージ",
+          body: "仕組みや支援体制が比較的整っていて、現場が回りやすい状態です。今後は強みの再現性を高めるとさらに安定します。",
+        },
+        stable: {
+          title: "安定タイプ（中）",
+          stars: 3,
+          badge: "生き残りレベル：ふつう",
+          image: "img/types/stable.png",
+          imageAlt: "安定タイプのイメージ",
+          body: "安定タイプ（中）テキストテキストテキストテキストテキストテキストテキストテキスト",
+        },
+        caution: {
+          title: "要テコ入れタイプ（注意）",
+          stars: 2,
+          badge: "生き残りレベル：要注意",
+          image: "img/types/caution.png",
+          imageAlt: "要テコ入れタイプのイメージ",
+          body: "要テコ入れタイプ（注意）テキストテキストテキストテキストテキストテキストテキストテキスト",
+        },
+        critical: {
+          title: "緊急テコ入れタイプ（危）",
+          stars: 1,
+          badge: "生き残りレベル：危険",
+          image: "img/types/critical.png",
+          imageAlt: "緊急テコ入れタイプのイメージ",
+          body: "緊急テコ入れタイプ（危）テキストテキストテキストテキストテキストテキストテキストテキスト",
+        },
+      };
+
+      // URLから type と score を取得
+      const params = new URLSearchParams(location.search);
+      const type = params.get("type") || "stable";
+      const score = Number(params.get("score") || 0);
+
+      const result = RESULT_MAP[type] || RESULT_MAP.stable;
+
+      // 表示反映
+      document.getElementById("resultTitle").textContent = result.title;
+      document.getElementById("resultBody").textContent = result.body;
+      document.getElementById("badge").textContent = result.badge;
+      document.getElementById("scoreText").textContent = String(score);
+      const imgEl = document.getElementById("resultImage");
+      if (result.image) {
+        imgEl.src = result.image;
+        imgEl.alt = result.imageAlt || result.title;
+      } else {
+        imgEl.style.display = "none";
+      }
+
+      // ★表示（0〜5に丸める）
+      const stars = Math.max(0, Math.min(5, result.stars));
+      document.getElementById("stars").textContent = "★★★★★".slice(0, stars) + "☆☆☆☆☆".slice(0, 5 - stars);
+
+      // シェアURL（今のページURL）
+      const shareUrl = location.href;
+
+      // シェア文言（ここは好みで調整OK）
+      const shareText = `【診断結果】私の勤務先は「${result.title}」でした。あなたの薬局は大丈夫？`;
+
+      // X / LINE シェアリンク
+      const xUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) + "&url=" + encodeURIComponent(shareUrl);
+
+      const lineUrl = "https://social-plugins.line.me/lineit/share?url=" + encodeURIComponent(shareUrl);
+
+      document.getElementById("shareX").href = xUrl;
+      document.getElementById("shareLine").href = lineUrl;
+    </script>
+  </body>
+</html>
